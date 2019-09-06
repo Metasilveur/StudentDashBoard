@@ -33,6 +33,27 @@ app.get('/authentification/:email/:password', function(req, response){
   });
 })
 
+app.get('/getStudentInfos/:email', function(req, response){
+  const client = new MongoClient(uri, { useNewUrlParser: true })
+  client.connect(err => {
+    const collection = client.db("Esiea").collection("Students")  
+    var umail = req.params.email
+        query = { email: umail }
+    
+    collection.find(query).toArray(function(err, result){
+      if (err) throw err
+      if(result.length < 1)
+        response.send("EMAIL") //on retourne un message d'erreur response.send(
+      else{
+        console.log('Get Student Infos ' + result[0].f_name + " " + result[0].l_name)
+        var studentInfos = [result[0].f_name, result[0].l_name, result[0].sector]
+        response.send(studentInfos)
+      }
+    })
+  client.close();
+  });
+})
+
 /** GET All Grades URL Request */
 app.get('/getAllGrades/:email', function(req, response){
   const client = new MongoClient(uri, { useNewUrlParser: true })
