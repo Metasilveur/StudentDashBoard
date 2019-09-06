@@ -7,7 +7,7 @@ let Student = require('./Student')
 client.connect(err => {
   const collection = client.db("Esiea").collection("Students");
   var obj = [
-    new Student('Yusuf', 'Doe', 'ydoe@et.esiea.fr', 'information system', "01/01/1960", "Rue de Lappe", 
+    new Student('Yusuf', 'Doe', 'ydoe@et.esiea.fr', 'Information System', 60,"01/01/1960", "Rue de Lappe", 
     {
       "Technical Common Core":{
           "Estimation and Data Analysis": 10,
@@ -40,7 +40,7 @@ client.connect(err => {
           "Distributed Programming":10
       }}, 9, 'azerty09'),
 
-    new Student('Joseph-Emmanuel', 'Banzio', 'banzio@et.esiea.fr', 'information system', "20/04/1998", "89 rue de Villiers, 92200 Neuilly-sur-Seine", {
+    new Student('Joseph-Emmanuel', 'Banzio', 'banzio@et.esiea.fr', 'Information System', 45, "20/04/1998", "89 rue de Villiers, 92200 Neuilly-sur-Seine", {
       "Technical Common Core":{
           "Estimation and Data Analysis": 10,
           "Numerical and combinatorial optimization":15,
@@ -72,7 +72,7 @@ client.connect(err => {
           "Distributed Programming":10
       }} , 10, "zoblazo09"),
       
-    new Student('Robert', 'Bui', 'rbui@et.esiea.fr', 'information system', "01/02/1920", "rue du xxx",  {
+    new Student('Robert', 'Bui', 'rbui@et.esiea.fr', 'Information System', 5, "01/02/1920", "rue du xxx",  {
       "Technical Common Core":{
           "Estimation and Data Analysis": 10,
           "Numerical and combinatorial optimization":15,
@@ -104,7 +104,7 @@ client.connect(err => {
           "Distributed Programming":10
       }}, 8, "123soleil"),
 
-      new Student('Beker', 'Bawilu-Mafuta', 'bawilu-mafuta@et.esiea.fr', 'Information System', "04/06/1995", "23 rue du Forain 94000 Vitry-sur-Seine",  {
+      new Student('Beker', 'Bawilu-Mafuta', 'bawilu-mafuta@et.esiea.fr', 'Information System', 20, "04/06/1995", "23 rue du Forain 94000 Vitry-sur-Seine",  {
         "Technical Common Core":{
             "Estimation and Data Analysis": 17,
             "Numerical and combinatorial optimization":10,
@@ -136,7 +136,7 @@ client.connect(err => {
             "Distributed Programming":15
         }}, 61, "bawilu00"),
       
-        new Student('Guillaume', 'Teak', 'teak@et.esiea.fr', 'Information System', "04/06/1996", "23 rue du Sachs 94000 Vitry-sur-Seine",  {
+        new Student('Guillaume', 'Teak', 'teak@et.esiea.fr', 'Information System', 60, "04/06/1996", "23 rue du Sachs 94000 Vitry-sur-Seine",  {
           "Technical Common Core":{
               "Estimation and Data Analysis": 17,
               "Numerical and combinatorial optimization":10,
@@ -172,7 +172,6 @@ client.connect(err => {
   collection.insertMany(obj, function(err, res){
       if (err) throw err
       console.log("Number of documents inserted : " + res.insertedCount)
-      //console.log("Element inserted " + obj)
   })
   
   client.close();

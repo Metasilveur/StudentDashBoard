@@ -33,6 +33,7 @@ app.get('/authentification/:email/:password', function(req, response){
   });
 })
 
+/** Get Student Infos */
 app.get('/getStudentInfos/:email', function(req, response){
   const client = new MongoClient(uri, { useNewUrlParser: true })
   client.connect(err => {
@@ -119,7 +120,7 @@ app.get('/getCalendar/:email', function(req, response){
 })
 
 
-app.get('/createTag/:email', function(req, response){
+app.get('/createTags/:email', function(req, response){
   const client = new MongoClient(uri, {useNewUrlParser: true})
   client.connect(err => {
         const collection = client.db("Esiea").collection("Students")
@@ -131,7 +132,7 @@ app.get('/createTag/:email', function(req, response){
           if(result.length < 1)
             response.send("EMAIL") //on retourne un message d'erreur response.send(
           else{
-            console.log('Get All Grades of ' + result[0].f_name + " " + result[0].l_name)
+            console.log('Creating Tags of ' + result[0].f_name + " " + result[0].l_name)
             grades = result[0].grades
             var modules = ['Technical Common Core', 'Core Program', 'Elective Program']
                 averageOfEachModule = []
@@ -139,7 +140,7 @@ app.get('/createTag/:email', function(req, response){
             for(i=0; i<modules.length; i++)
               averageOfEachModule.push(functions.calculateAverage(grades[modules[i]]))
             
-           response.send(functions.assignTag(functions.calculateAverage(averageOfEachModule)))
+           response.send([functions.assignTagWithGrade(functions.calculateAverage(averageOfEachModule)), functions.assignTagWithAbsc(result[0].absence), functions.assignTagWithDistance(result[0].timeToGoToSchool)])
           }
       })
     
