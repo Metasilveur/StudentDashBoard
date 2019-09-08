@@ -147,3 +147,24 @@ app.get('/createTags/:email', function(req, response){
   })
 
 })
+
+app.get('/getMails/:email', function(req, response) {
+  const client = new MongoClient(uri, {useNewUrlParser: true})
+  client.connect(err => {
+        const collection = client.db("Esiea").collection("Mail")
+        var umail = req.params.email
+            query = {receiver: umail}
+
+       collection.find(query).toArray(function(err, result){
+          if (err) throw err
+          if(result.length < 1)
+            response.send("EMAIL") 
+          else{
+            console.log('Mails of ' + result[0].receiver)
+           
+           response.send([result[0].sender, result[0].receiver, result[0].subject, result[0].content])
+          }
+      })
+    
+  })
+})
