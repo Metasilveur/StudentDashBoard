@@ -11,7 +11,7 @@ app.get('/authentification/:email/:password', function(req, response){
     const collection = client.db("Esiea").collection("Students")  
     console.log('Authentification request')
     var umail = req.params.email
-        query = { email: umail }
+        query = { email: umail.toLowerCase() }
         upwd = req.params.password
     //Code d'erreur à la place du texte
   
@@ -39,7 +39,7 @@ app.get('/getStudentInfos/:email', function(req, response){
   client.connect(err => {
     const collection = client.db("Esiea").collection("Students")  
     var umail = req.params.email
-        query = { email: umail }
+        query = { email: umail.toLowerCase() }
     
     collection.find(query).toArray(function(err, result){
       if (err) throw err
@@ -61,7 +61,7 @@ app.get('/getAllGrades/:email', function(req, response){
   client.connect(err => {
     const collection = client.db("Esiea").collection("Students")  
     var umail = req.params.email
-        query = { email: umail }
+        query = { email: umail.toLowerCase() }
     
     collection.find(query).toArray(function(err, result){
       if (err) throw err
@@ -83,7 +83,7 @@ app.get('/getNumberOfAbs/:email', function(req, response){
   client.connect(err => {
     const collection = client.db("Esiea").collection("Students")  
     var umail = req.params.email
-        query = { email: umail }
+        query = { email: umail.toLowerCase() }
     
     collection.find(query).toArray(function(err, result){
       if (err) throw err
@@ -105,7 +105,7 @@ app.get('/getCalendar/:email', function(req, response){
     client.connect(err => {
           const collection = client.db("Esiea").collection("Students")
           var umail = req.params.email
-              query = {email: umail}
+              query = {email: umail.toLowerCase()}
 
           collection.find(query).toArray(function(err, result){
               if (err) throw err;
@@ -125,7 +125,7 @@ app.get('/createTags/:email', function(req, response){
   client.connect(err => {
         const collection = client.db("Esiea").collection("Students")
         var umail = req.params.email
-            query = {email: umail}
+            query = {email: umail.toLowerCase()}
 
        collection.find(query).toArray(function(err, result){
           if (err) throw err
@@ -153,7 +153,7 @@ app.get('/getMails/:email', function(req, response) {
   client.connect(err => {
         const collection = client.db("Esiea").collection("Mail")
         var umail = req.params.email
-            query = {receiver: umail}
+            query = {receiver: umail.toLowerCase()}
 
        collection.find(query).toArray(function(err, result){
           if (err) throw err
