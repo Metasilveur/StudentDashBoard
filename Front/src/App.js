@@ -56,6 +56,14 @@ import {
 } from 'recharts';
 import Calendar from "./components/Calendar";
 
+/**
+ * Our variables used for using JE's database datas
+ */
+let list_tags = [] ;
+var gurades = [];
+var graph = [];
+
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -190,6 +198,10 @@ export default function SignIn() {
     username: '',
     password: '',
     boolean: true,
+    name: '',
+    surname:'',
+    filiere:'',
+    tag : [],
   });
 
 
@@ -222,10 +234,16 @@ setValues(prev => ({
     ...prev,
     boolean: true,
 }));
+
+  gurades.length = 0 ;
+  graph.length = 0 ;
+  list_tags.length = 0;
+  form.tag.length = 0 ;
+
   }
 
  
-   function doGetTEXT()  {
+  function doGetTEXT()  {
 
     var url = "http://127.0.0.1:8081/authentification/";
 
@@ -242,15 +260,15 @@ setValues(prev => ({
           console.log(data);
 
           if(data === "OK"){
-            alert("Correct");
-            
+            setValues(prev => ({ 
+                ...prev,
+                boolean: false,
+            }));
+
           }
           else if(data === "PWD"){
             alert("Bad password !");
-            setValues(prev => ({ 
-              ...prev,
-              boolean: false,
-            }));
+
           }
           else if(data === "EMAIL"){
             alert("Bad email !");
@@ -265,6 +283,125 @@ setValues(prev => ({
 
       });
    
+  }
+
+  function getInfos(){
+    var url = "http://127.0.0.1:8081/getStudentinfos/";
+    url += form.username;
+
+    var aPromise = fetch(url);
+   
+    aPromise
+      .then(function(response) {
+          console.log("OK! Server returns a response object:");
+          return response.json();
+      })
+      .then(function(data){
+          console.log(data);
+            setValues(prev => ({ 
+                ...prev,
+                name: data[0],
+                surname: data[1],
+                filiere: data[2],
+            }));
+
+          
+      })
+      .catch(function(error)  {
+          console.log("Noooooo! Something error:");
+          console.log(error);
+
+      }); 
+  }
+
+  function getGrades(){
+    var url = "http://127.0.0.1:8081/getAllGrades/";
+    url += form.username;
+
+    var aPromise = fetch(url);
+   
+    aPromise
+      .then(function(response) {
+          console.log("OK! Server returns a response object:");
+          return response.json();
+      })
+      .then(function(data){
+          //console.log(data["Core Program"]["Relationship Dynamics"]);
+
+          for (var key in data["Core Program"])
+          {
+            //console.log(key+" "+data["Core Program"][key]);  
+            var obj = { matiere:key, bloc:'Core Program', note:data["Core Program"][key]};
+            gurades.push(obj);
+          }
+          for (var key in data["Technical Common Core"])
+          {
+            //console.log(key+" "+data["Technical Common Core"][key]);  
+            var obj = { matiere:key, bloc:'Technical Common Core', note:data["Technical Common Core"][key]};
+            gurades.push(obj);
+          }
+          for (var key in data["Technical Common Core"])
+          {
+            //console.log(key+" "+data["Technical Common Core"][key]);  
+            var obj = { matiere:key, bloc:'Technical Common Core', note:data["Technical Common Core"][key]};
+            gurades.push(obj);
+          }
+
+          for (var key in data["Core Program"])
+          {
+            //console.log(key+" "+data["Core Program"][key]);  
+            //var obj = { matiere:key, bloc:'Core Program', note:data["Core Program"][key]};
+            var obj =  { subject: key, A: data["Core Program"][key], B: 10, fullMark: 20};
+            graph.push(obj);
+          }
+
+          console.log(gurades);
+      })
+      .catch(function(error)  {
+          console.log("Noooooo! Something error:");
+          console.log(error);
+
+      }); 
+  }
+
+  function getTags(){
+    var url = "http://127.0.0.1:8081/createTags/";
+    url += form.username;
+
+    var aPromise = fetch(url);
+
+    
+   
+    aPromise
+      .then(function(response) {
+          console.log("OK! Server returns a response object:");
+          return response.json();
+      })
+      .then(function(data){
+          //console.log(data[0]);
+          
+          for (var i = 0; i < data.length; i++) {
+            console.log(data[i]);
+            list_tags.push(data[i]);
+            console.log(form.tag[i]);
+            console.log("Gloabal" + list_tags[i]);
+          } 
+
+          setValues(prev => ({ 
+            ...prev,
+            tag : list_tags,
+        }));
+           
+           
+           
+            
+          
+      })
+      .catch(function(error)  {
+          console.log("Noooooo! Something error:");
+          console.log(error);
+
+      }); 
   }
 
  function rendering() {
@@ -314,7 +451,7 @@ setValues(prev => ({
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={doGetTEXT}
+              onClick={(event) => { doGetTEXT(event); getGrades(event); getInfos(event) ; getTags(event)}}
             >
               Login
             </Button>
@@ -360,35 +497,17 @@ setValues(prev => ({
     </div>
       </Router>
 
-
-      </div>
-      );
-    }
-  } 
-
-
-  return (
-    <div>
-    {rendering()}
-    </div>
-  );
-}
+      <Chip label={list_tags[0]} className={classes.chip} color='primary'/>
+        <Chip label={list_tags[1]}  className={classes.chip} color='secondary'/> 
+        <Chip label={list_tags[2]}  className={classes.chip} color='primary'/>
+        <Chip label={list_tags[3]}  className={classes.chip} color='secondary'/>
 
 
- function Body(){
-
-  const classes = useStyles();
-   return(
-     <div>
-       <Chip label="Basic Chip" className={classes.chip} color='primary'/>
+        {/* <Chip label="Basic Chip" className={classes.chip} color='primary'/>
         <Chip label="Basic Chip" className={classes.chip} color='secondary'/>
         <Chip label="Basic Chip" className={classes.chip} color='primary'/>
         <Chip label="Basic Chip" className={classes.chip} color='secondary'/>
-        <Chip label="Basic Chip" className={classes.chip} color='primary'/>
-        <Chip label="Basic Chip" className={classes.chip} color='secondary'/>
-        <Chip label="Basic Chip" className={classes.chip} color='primary'/>
-        <Chip label="Basic Chip" className={classes.chip} color='secondary'/>
-        <Chip label="Basic Chip" className={classes.chip} color='primary'/>
+        <Chip label="Basic Chip" className={classes.chip} color='primary'/> */}
 
         <div className={classes.profile}>
 
@@ -403,15 +522,15 @@ setValues(prev => ({
               4ème année
             </Typography>
             <Typography variant="h5" component="h2">
-            Prénom Nom
+            {form.name+" "+form.surname}
             </Typography>
             <Typography className={classes.pos} color="textSecondary">
-              Filières
+            {form.filiere}
             </Typography>
             <Typography variant="body2" component="p">
               Adresse
               <br />
-              adresse@email.fr
+              {form.username}
             </Typography>
           </CardContent>
         </Card>
@@ -454,7 +573,7 @@ setValues(prev => ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(row => (
+              {gurades.map(row => (
                 <TableRow key={row.matiere}>
                   <TableCell align="left">
                     {row.matiere}
@@ -467,12 +586,12 @@ setValues(prev => ({
           </Table>
         </Paper>
 
-        <RadarChart cx={300} cy={250} outerRadius={150} width={500} height={500} data={data}>
+        <RadarChart cx={300} cy={250} outerRadius={150} width={500} height={500} data={graph}>
           <PolarGrid />
           <PolarAngleAxis dataKey="subject" />
-          <PolarRadiusAxis angle={30} domain={[0, 150]} />
-          <Radar name="Mike" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-          <Radar name="Lily" dataKey="B" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
+          <PolarRadiusAxis angle={30} domain={[0, 100]} />
+          <Radar name={form.name} dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+          <Radar name="Average grades" dataKey="B" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
           <Legend />
         </RadarChart>
 
@@ -481,6 +600,28 @@ setValues(prev => ({
         
 
       </div>
+
+
+      </div>
+      );
+    }
+  } 
+
+
+  return (
+    <div>
+    {rendering()}
+    </div>
+  );
+}
+
+
+ function Body(){
+
+  const classes = useStyles();
+   return(
+     <div>
+       
 
      </div>
    );
