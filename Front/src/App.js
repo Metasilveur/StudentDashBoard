@@ -43,7 +43,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import Bob from './images/bob.png';
 import TextField from '@material-ui/core/TextField';
-import Bg from './images/bg2.jpg';
+import Bg from './images/blue_background.jpg';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import Container from '@material-ui/core/Container';
@@ -122,12 +122,19 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
   },
     bigAvatar: {
+      display: 'flex',
     margin: 10,
     width: 150,
     height: 150,
   },
     chip: {
     margin: theme.spacing(1),
+  },
+  chips: {
+    display: 'flex',
+    margin: theme.spacing(1),
+    marginLeft: 50, 
+    flexDirection: 'column',
   },
   '@global': {
     body: {
@@ -141,6 +148,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
   avatar: {
+    display: 'flex',
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
@@ -494,13 +502,17 @@ setValues(prev => ({
       <Route path="/body" component={Body} />
       <Route path="/calendar" component={Calendar} />
       
-    </div>
+    </div >
       </Router>
+
+      <div className={classes.chips}>
 
       <Chip label={list_tags[0]} className={classes.chip} color='primary'/>
         <Chip label={list_tags[1]}  className={classes.chip} color='secondary'/> 
         <Chip label={list_tags[2]}  className={classes.chip} color='primary'/>
         <Chip label={list_tags[3]}  className={classes.chip} color='secondary'/>
+
+        </div>
 
 
         {/* <Chip label="Basic Chip" className={classes.chip} color='primary'/>
@@ -535,7 +547,7 @@ setValues(prev => ({
           </CardContent>
         </Card>
 
-        <Card className={classes.mailNotification}>
+        {/* <Card className={classes.mailNotification}>
           <CardContent>
 
 
@@ -555,7 +567,7 @@ setValues(prev => ({
               adresse@email.fr
             </Typography>
           </CardContent>
-        </Card>
+        </Card> */}
 
 
         </div>
