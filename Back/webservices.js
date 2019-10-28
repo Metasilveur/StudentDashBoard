@@ -4,6 +4,8 @@ const MongoClient = require('mongodb').MongoClient
 const functions = require('./functions.js')     
 const app = require('./server.js')
 
+//wesh 
+
 /** Authentification URL Request */
 app.get('/authentification/:email/:password', function(req, response){
   const client = new MongoClient(uri, { useNewUrlParser: true })
