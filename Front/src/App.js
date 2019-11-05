@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
@@ -38,7 +39,14 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  progress: {
+    margin: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
 }));
+
 
 
 export default function Login() {
@@ -47,7 +55,20 @@ export default function Login() {
     username: '',
     password: '',
     boolean: true,
+    loading: false,
+    name: 'Robert',
+    surname: 'Bui',
+    filiere: 'Système d\'information',
+    graph: [],
+    gurades: [],
   });
+
+  for(var i = 0; i < 5; i++){
+    var obj = { matiere:'Math', bloc:'Core Program', note:18};
+    var obj1 =  { subject: 'Math', A: 15, B: 10, fullMark: 20};
+    form.gurades.push(obj);
+    form.graph.push(obj1);
+  }
 
   const updateField = e => {
     setValues({
@@ -64,6 +85,11 @@ export default function Login() {
     url += form.username + "/" + form.password;
 
     var aPromise = fetch(url);
+
+    setValues(prev => ({ 
+        ...prev,
+        loading: true,
+    }));
    
     aPromise
       .then(function(response) {
@@ -74,6 +100,7 @@ export default function Login() {
           console.log(data);
 
           if(data === "OK"){
+
             setValues(prev => ({ 
                 ...prev,
                 boolean: false,
@@ -82,10 +109,18 @@ export default function Login() {
           }
           else if(data === "PWD"){
             alert("Bad password !");
+    setValues(prev => ({ 
+              ...prev,
+              loading: false,
+          }));
 
           }
           else if(data === "EMAIL"){
             alert("Bad email !");
+    setValues(prev => ({ 
+              ...prev,
+              loading: false,
+          }));
           }
 
           console.log(url);
@@ -94,9 +129,25 @@ export default function Login() {
       .catch(function(error)  {
           console.log("Noooooo! Something error:");
           console.log(error);
+          //alert("Error ! please check your internet connection or try later");
+
+
+          setValues(prev => ({ 
+              ...prev,
+              //boolean: false,
+              loading: false,
+          }));
 
       });
    
+  }
+
+  function loading() {
+    if(form.loading === true){
+      return(
+        <CircularProgress className={classes.progress} />
+        );
+    }
   }
 
   function rendering() {
@@ -150,8 +201,8 @@ export default function Login() {
             >
               Login
             </Button>
-
           </form>
+{loading()}
         </div>
       </Container>  
         );
@@ -172,3 +223,4 @@ export default function Login() {
     </div>
   );
 }
+//{rendering()}

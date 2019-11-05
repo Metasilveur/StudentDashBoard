@@ -136,18 +136,19 @@ const useStyles = makeStyles(theme => ({
 
 
 const Home = (props) => {
+  
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
 
   const [form, setValues] = React.useState({
-    name: '',
-    surname:'',
-    filiere:'',
+    name: 'Robert',
+    surname:'Bui',
+    filiere:'Si',
     tag : [],
   });
 
-  var url = "http://127.0.0.1:8081/getStudentinfos/";
+  /*var url = "http://127.0.0.1:8081/getStudentinfos/";
   url += props.email;
   var aPromise = fetch(url);
    
@@ -171,7 +172,7 @@ const Home = (props) => {
         console.log("Noooooo! Something error:");
         console.log(error);
 
-    }); 
+    }); */
 
 
   const handleDrawerOpen = () => {
@@ -185,6 +186,8 @@ const Home = (props) => {
 
 
   return (
+
+
 
     <Router>
 
@@ -284,11 +287,12 @@ const Home = (props) => {
         <div className={classes.drawerHeader} />
 
 
+        <Grid container spacing={1}>
           <Route path="/" exact component={Dashboard2} />
           <Route path="/dash2" component={Dashboard4} />
           <Route path="/dash3" render={() => <Dashboard3 user={props.email} />}/>
           <Route path="/dash4" component={Dashboard}/>
-
+          </Grid>
       </main>
 
     </div>

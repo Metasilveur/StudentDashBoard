@@ -13,6 +13,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import PropTypes from 'prop-types';
 import MailIcon from '@material-ui/icons/Mail';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 import App from './App';
 
 const width2 = 240;
@@ -38,10 +43,20 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing(3),
   },
+
 }));
+
+const rows = [
+  { matiere:'Matière 1', bloc:'Bloc 1', note:10},
+  { matiere:'Matière 2', bloc:'Bloc 2', note:10},
+  { matiere:'Matière 3', bloc:'Bloc 2', note:10},
+  { matiere:'Matière 4', bloc:'Bloc 3', note:10},
+  { matiere:'Matière 5', bloc:'Bloc 2', note:10},
+  { matiere:'Matière 6', bloc:'Bloc 2', note:10},
+  { matiere:'Matière 7', bloc:'Bloc 1', note:10},
+  { matiere:'Matière 8', bloc:'Bloc 2', note:10},
+]
 
 const Dashboard3 = (props) => {
 
@@ -86,7 +101,31 @@ const Dashboard3 = (props) => {
       <main className={classes.content}>
         <div className={classes.toolbar} />
 
-        <h1>Hello, {props.user}!</h1>
+
+
+            <Table hover className={classes.table} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                <TableCell >Matière</TableCell>
+                <TableCell align="left">Bloc</TableCell>
+                <TableCell align="left">Note</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map(row => (
+                <TableRow key={row.matiere}>
+                  <TableCell >
+                    {row.matiere}
+                  </TableCell>
+                  <TableCell align="left">{row.bloc}</TableCell>
+                  <TableCell align="left">{row.note}</TableCell>
+                </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+
+
+
         
       </main>
     </div>
