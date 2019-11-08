@@ -1,6 +1,5 @@
 import React from 'react';
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -15,32 +14,15 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
-import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
-import LinearProgress from '@material-ui/core/LinearProgress';
 import Bob from './bob.png';
 import Back from './sidebar-4.jpg';
-import { Bar } from 'react-chartjs-2';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import { BrowserRouter as Router, Route, Link ,withRouter} from "react-router-dom";
-import { data, options } from './chart';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardActions,
-  Divider,
-  Button,
-  TextField
+  Divider
 } from '@material-ui/core';
-import {
-  Radar, RadarChart, PolarGrid, Legend,
-  PolarAngleAxis, PolarRadiusAxis,
-} from 'recharts';
 import Dashboard from './Dashboard';
 import Dashboard2 from './Dashboard2';
 import Dashboard3 from './Dashboard3';
@@ -141,12 +123,6 @@ const Home = (props) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
 
-  const [form, setValues] = React.useState({
-    name: 'Robert',
-    surname:'Bui',
-    filiere:'Si',
-    tag : [],
-  });
 
   /*var url = "http://127.0.0.1:8081/getStudentinfos/";
   url += props.email;
@@ -232,7 +208,7 @@ const Home = (props) => {
         <Grid container justify="center" alignItems="center" direction="column">
           <Avatar alt="Bob"  src={Bob} className={classes.avatar} />
           <Typography style={{ color: '#FFFFFF' }} variant="h7" className={classes.text} >
-          {form.name+" "+form.surname}
+          {props.name+" "+props.surname}
           </Typography>
           <Typography style={{ color: '#FFFFFF' }} variant="h7" className={classes.textB} >
           4ème année
@@ -291,7 +267,7 @@ const Home = (props) => {
           <Route path="/" exact component={Dashboard2} />
           <Route path="/dash2" component={Dashboard4} />
           <Route path="/dash3" render={() => <Dashboard3 user={props.email} />}/>
-          <Route path="/dash4" component={Dashboard}/>
+          <Route path="/dash4" render={() => <Dashboard/>}/>
           </Grid>
       </main>
 

@@ -1,33 +1,10 @@
 import React from 'react';
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
+import { makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
-import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Bob from './bob.png';
-import Back from './sidebar-4.jpg';
-import { Bar } from 'react-chartjs-2';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import { data, options } from './chart';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import PeopleIcon from '@material-ui/icons/PeopleOutlined';
 import moment from 'moment';
 import {
   Card,
@@ -38,10 +15,7 @@ import {
   Button,
   TextField
 } from '@material-ui/core';
-import {
-  Radar, RadarChart, PolarGrid, Legend,
-  PolarAngleAxis, PolarRadiusAxis,
-} from 'recharts';
+
 
 const useStyles = makeStyles(theme => ({
   root: {

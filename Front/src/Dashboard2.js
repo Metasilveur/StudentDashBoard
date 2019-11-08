@@ -1,38 +1,17 @@
 import React from 'react';
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
-import InsertChartIcon from '@material-ui/icons/InsertChartOutlined';
 import LinearProgress from '@material-ui/core/LinearProgress';
-import Bob from './bob.png';
-import Back from './sidebar-4.jpg';
 import { Bar } from 'react-chartjs-2';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import { data, options } from './chart';
-import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import PeopleIcon from '@material-ui/icons/PeopleOutlined';
 import {
   Card,
   CardHeader,
   CardContent,
-  CardActions,
   Divider,
   Button
 } from '@material-ui/core';
@@ -92,28 +71,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const datas = [
-  {
-    subject: 'Math', A: 120, B: 110, fullMark: 150,
-  },
-  {
-    subject: 'Chinese', A: 98, B: 130, fullMark: 150,
-  },
-  {
-    subject: 'English', A: 86, B: 130, fullMark: 150,
-  },
-  {
-    subject: 'Geography', A: 99, B: 100, fullMark: 150,
-  },
-  {
-    subject: 'Physics', A: 85, B: 90, fullMark: 150,
-  },
-  {
-    subject: 'History', A: 65, B: 85, fullMark: 150,
-  },
-];
 
-const Dashboard2 = () => {
+const Dashboard2 = (props) => {
   const classes = useStyles();
 
   return(
@@ -143,7 +102,7 @@ const Dashboard2 = () => {
                         >
                           FROMAGE
                         </Typography>
-                        <Typography variant="h3">35%</Typography>
+                        <Typography variant="h3">{props.absence+ "%"}</Typography>
                       </Grid>
                       <Grid item>
                         <Avatar className={classes.avatarP}>
@@ -315,8 +274,8 @@ const Dashboard2 = () => {
 
           <Grid item
           lg={6}
-          md={6}
-          xl={3}
+          md={12}
+          xl={9}
           xs={12}  >
             <Card className={classes.card} >
 
@@ -327,10 +286,10 @@ const Dashboard2 = () => {
 
               <CardContent>
 
-                <RadarChart cx={300} cy={250} outerRadius={150} width={500} height={500} data={datas}>
+                <RadarChart cx={300} cy={250} outerRadius={150} width={500} height={500} data={props.gurades}>
                   <PolarGrid />
                   <PolarAngleAxis dataKey="subject" />
-                  <PolarRadiusAxis angle={30} domain={[0, 100]} />
+                  <PolarRadiusAxis angle={30} domain={[0, 20]} />
                   <Radar name="Robert" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
                   <Radar name="Average grades" dataKey="B" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
                   <Legend />

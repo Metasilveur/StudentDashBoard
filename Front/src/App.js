@@ -6,15 +6,11 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   '@global': {
@@ -48,7 +44,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-
 export default function Login() {
 
   const [form, setValues] = React.useState({
@@ -59,16 +54,36 @@ export default function Login() {
     name: 'Robert',
     surname: 'Bui',
     filiere: 'Système d\'information',
-    graph: [],
-    gurades: [],
+    absence: '8',
+    graph: [  { matiere:'Matière 1', bloc:'Bloc 1', note:10},
+  { matiere:'Matière 2', bloc:'Bloc 2', note:10},
+  { matiere:'Matière 3', bloc:'Bloc 2', note:10},
+  { matiere:'Matière 4', bloc:'Bloc 3', note:10},
+  { matiere:'Matière 5', bloc:'Bloc 2', note:10},
+  { matiere:'Matière 6', bloc:'Bloc 2', note:10},
+  { matiere:'Matière 7', bloc:'Bloc 1', note:10},
+  { matiere:'Matière 8', bloc:'Bloc 2', note:10}],
+    gurades: [  {
+    subject: 'Math', A: 15, B: 10, fullMark: 20,
+  },
+  {
+    subject: 'Chinese', A: 15, B: 10, fullMark: 20,
+  },
+  {
+    subject: 'English', A: 15, B: 10, fullMark: 20,
+  },
+  {
+    subject: 'Geography', A: 15, B: 10, fullMark: 20,
+  },
+  {
+    subject: 'Physics', A: 15, B: 1, fullMark: 20,
+  },
+  {
+    subject: 'History', A: 15 , B: 1, fullMark: 20,
+  }],
   });
-
-  for(var i = 0; i < 5; i++){
-    var obj = { matiere:'Math', bloc:'Core Program', note:18};
-    var obj1 =  { subject: 'Math', A: 15, B: 10, fullMark: 20};
-    form.gurades.push(obj);
-    form.graph.push(obj1);
-  }
+   
+  
 
   const updateField = e => {
     setValues({
@@ -134,7 +149,7 @@ export default function Login() {
 
           setValues(prev => ({ 
               ...prev,
-              //boolean: false,
+              boolean: false,
               loading: false,
           }));
 
@@ -209,7 +224,11 @@ export default function Login() {
     }
     else{
       return(
-        <Home email={form.username} />
+        <Home email={form.username} 
+        name={form.name}
+        surname={form.surname}
+        filiere={form.filiere}
+        absence={form.absence}/>
         );
     }
   }
