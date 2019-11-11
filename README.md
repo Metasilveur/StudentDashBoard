@@ -24,6 +24,7 @@ On our database, we have two different collections. The student and the mail. Th
 ## Screenshots
 
 <img src="responsive.png">
+<img src="zoom.png">
 As you can see, the website is responsive and can adapt to any device.
 
 <img src="dashboard.png">
