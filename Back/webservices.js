@@ -26,7 +26,7 @@ app.get('/authentification/:email/:password', function(req, response){
           var dbpwd = result[0].password
           console.log("Password verification")
           if(upwd == dbpwd)
-              response.send(200) //Succès
+              response.sendStatus(200) //Succès
           else
               response.send("PWD") // Accès refusé / Mot de passe incorrect
           }
