@@ -23,16 +23,6 @@ const useStyles = makeStyles({
   },
 });
 
-const rows = [
-  { matiere:'Matière 1', bloc:'Bloc 1', note:10},
-  { matiere:'Matière 2', bloc:'Bloc 2', note:10},
-  { matiere:'Matière 3', bloc:'Bloc 2', note:10},
-  { matiere:'Matière 4', bloc:'Bloc 3', note:10},
-  { matiere:'Matière 5', bloc:'Bloc 2', note:10},
-  { matiere:'Matière 6', bloc:'Bloc 2', note:10},
-  { matiere:'Matière 7', bloc:'Bloc 1', note:10},
-  { matiere:'Matière 8', bloc:'Bloc 2', note:10},
-]
 
 const Dashboard4 = props => {
   const classes = useStyles();
@@ -51,13 +41,13 @@ const Dashboard4 = props => {
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                <TableCell >Matière</TableCell>
+                <TableCell >Subject</TableCell>
                 <TableCell align="left">Bloc</TableCell>
-                <TableCell align="left">Note</TableCell>
+                <TableCell align="left">Grade</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map(row => (
+                {props.graph.map(row => (
                 <TableRow key={row.matiere}>
                   <TableCell >
                     {row.matiere}

@@ -12,14 +12,13 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import Bob from './bob.png';
 import Back from './sidebar-4.jpg';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link , Switch} from "react-router-dom";
 import {
   Divider
 } from '@material-ui/core';
@@ -27,7 +26,7 @@ import Dashboard from './Dashboard';
 import Dashboard2 from './Dashboard2';
 import Dashboard3 from './Dashboard3';
 import Dashboard4 from './Dashboard4';
-
+import Image from 'material-ui-image'
 var drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -124,33 +123,6 @@ const Home = (props) => {
   const [open, setOpen] = React.useState(true);
 
 
-  /*var url = "http://127.0.0.1:8081/getStudentinfos/";
-  url += props.email;
-  var aPromise = fetch(url);
-   
-  aPromise
-    .then(function(response) {
-        console.log("OK! Server returns a response object:");
-        return response.json();
-    })
-    .then(function(data){
-        console.log(data);
-          setValues(prev => ({ 
-              ...prev,
-              name: data[0],
-              surname: data[1],
-              filiere: data[2],
-          }));
-
-          
-    })
-    .catch(function(error)  {
-        console.log("Noooooo! Something error:");
-        console.log(error);
-
-    }); */
-
-
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -187,7 +159,7 @@ const Home = (props) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography  noWrap>
             Student DashBoard
           </Typography>
         </Toolbar>
@@ -206,12 +178,12 @@ const Home = (props) => {
         <div className={classes.drawerHeader}>
 
         <Grid container justify="center" alignItems="center" direction="column">
-          <Avatar alt="Bob"  src={Bob} className={classes.avatar} />
-          <Typography style={{ color: '#FFFFFF' }} variant="h7" className={classes.text} >
+          <Avatar alt={props.surname}  src={'https://raw.githubusercontent.com/Metasilveur/Api_Mobile/master/'+props.surname+'.jpg'} className={classes.avatar} />
+          <Typography style={{ color: '#FFFFFF' }}  className={classes.text} >
           {props.name+" "+props.surname}
           </Typography>
-          <Typography style={{ color: '#FFFFFF' }} variant="h7" className={classes.textB} >
-          4ème année
+          <Typography style={{ color: '#FFFFFF' }}  className={classes.textB} >
+          4th Years
           </Typography>
         </Grid>   
 
@@ -224,31 +196,31 @@ const Home = (props) => {
 
       <List className={classes.list} >
 
-            <Link to="/" style={{ textDecoration: 'none' , color:'white'}}>
+            <Link to="/dash1" style={{ textDecoration: 'none' , color:'white'}}>
             <ListItem button key="DashBoard">
-              <ListItemIcon style={{ color: '#FFFFFF' }} >                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white" ><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>             </ListItemIcon>
-              <ListItemText style={{ color: '#FFFFFF' }} primary="DashBoard" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white" ><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+              <ListItemText style={{ color: '#FFFFFF', marginLeft: 25  }} primary="DashBoard" />
             </ListItem>
             </Link>
 
             <Link to="/dash2" style={{ textDecoration: 'none' , color:'white'}}>
             <ListItem button key="Grades">
-              <ListItemIcon style={{ color: '#FFFFFF' }} >   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg> </ListItemIcon>
-              <ListItemText style={{ color: '#FFFFFF' }} primary="Grades" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg> 
+              <ListItemText style={{ color: '#FFFFFF', marginLeft: 25 }} primary="Grades" />
             </ListItem>
             </Link>
 
             <Link to="/dash3" style={{ textDecoration: 'none' , color:'white'}}>
             <ListItem button key="Email">
-              <ListItemIcon style={{ color: '#FFFFFF' }} > <MailIcon />  </ListItemIcon>
-              <ListItemText style={{ color: '#FFFFFF' }} primary="Email" />
+              <MailIcon />  
+              <ListItemText style={{ color: '#FFFFFF' , marginLeft: 25 }} primary="Email" />
             </ListItem>
             </Link>
 
             <Link to="/dash4" style={{ textDecoration: 'none' , color:'white'}}>
             <ListItem button key="Profile">
-              <ListItemIcon style={{ color: '#FFFFFF' }} > <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"/></svg>  </ListItemIcon>
-              <ListItemText style={{ color: '#FFFFFF' }} primary="Profile" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"/></svg>
+              <ListItemText style={{ color: '#FFFFFF' , marginLeft: 25 }} primary="Profile" />
             </ListItem>
             </Link>
 
@@ -263,11 +235,15 @@ const Home = (props) => {
         <div className={classes.drawerHeader} />
 
 
-        <Grid container spacing={1}>
-          <Route path="/" exact component={Dashboard2} />
-          <Route path="/dash2" component={Dashboard4} />
-          <Route path="/dash3" render={() => <Dashboard3 user={props.email} />}/>
-          <Route path="/dash4" render={() => <Dashboard/>}/>
+        <Grid>
+          <Switch>
+
+          <Route path="/dash1" render={() => <Dashboard2 absence={props.absence} captions={props.captions} data={props.data} />} />
+          <Route path="/dash2" render={() => <Dashboard4 graph={props.graph}/>} />
+          <Route path="/dash3" render={() => <Dashboard3 user={props.email} mail={props.mail}/>}/>
+          <Route path="/dash4" render={() => <Dashboard surname={props.surname} name={props.name}/>}/>
+
+          </Switch>
           </Grid>
       </main>
 

@@ -15,10 +15,8 @@ import {
   Divider,
   Button
 } from '@material-ui/core';
-import {
-  Radar, RadarChart, PolarGrid, Legend,
-  PolarAngleAxis, PolarRadiusAxis,
-} from 'recharts';
+import RadarChart from 'react-svg-radar-chart';
+import 'react-svg-radar-chart/build/css/index.css'
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -42,6 +40,7 @@ const useStyles = makeStyles(theme => ({
     position: 'relative'
   },
   root: {
+    padding: theme.spacing(4),
     height: '100%'
   },
   content: {
@@ -73,6 +72,7 @@ const useStyles = makeStyles(theme => ({
 
 
 const Dashboard2 = (props) => {
+
   const classes = useStyles();
 
   return(
@@ -100,20 +100,20 @@ const Dashboard2 = (props) => {
                           gutterBottom
                           variant="body2"
                         >
-                          FROMAGE
+                          ABSENCE
                         </Typography>
-                        <Typography variant="h3">{props.absence+ "%"}</Typography>
+                        <Typography variant="h3">{Math.round((parseInt(props.absence)/60)*100) + "%"}</Typography>
                       </Grid>
                       <Grid item>
                         <Avatar className={classes.avatarP}>
-                           <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 18 18"><path d="M.5 16h17L9 1 .5 16zm9.5-2H8v-2h2v2zm0-3H8V7h2v4z"/></svg>
+                           <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 18 18"><path d="M9 1.03c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zM10 13H8v-2h2v2zm0-3H8V5h2v5z"/></svg>
                         </Avatar>
 
                       </Grid>
                     </Grid>
                     <LinearProgress
                       className={classes.progress}
-                      value={35}
+                      value={Math.round((parseInt(props.absence)/60)*100)}
                       variant="determinate"
                     />
                   </CardContent>
@@ -143,7 +143,7 @@ const Dashboard2 = (props) => {
                       >
                         UNREAD MAILS
                       </Typography>
-                      <Typography variant="h3">25</Typography>
+                      <Typography variant="h3">3</Typography>
                     </Grid>
                     <Grid item>
                       <Avatar className={classes.avatar}>
@@ -180,7 +180,7 @@ const Dashboard2 = (props) => {
                       >
                         CURRENT PROJECTS
                       </Typography>
-                      <Typography variant="h3">3</Typography>
+                      <Typography variant="h3">2</Typography>
                     </Grid>
                     <Grid item>
                       <Avatar className={classes.avatar}>
@@ -218,7 +218,7 @@ const Dashboard2 = (props) => {
                         >
                           QUIZZ STATS
                         </Typography>
-                        <Typography variant="h3">64%</Typography>
+                        <Typography variant="h3">85%</Typography>
                       </Grid>
                       <Grid item>
                         <Avatar className={classes.avatarP}>
@@ -255,7 +255,7 @@ const Dashboard2 = (props) => {
                           Last 7 days <ArrowDropDownIcon />
                         </Button>
                       }
-                      title="Grades Graph"
+                      title="Project organization"
                     />
                     <Divider />
                     <CardContent>
@@ -286,14 +286,11 @@ const Dashboard2 = (props) => {
 
               <CardContent>
 
-                <RadarChart cx={300} cy={250} outerRadius={150} width={500} height={500} data={props.gurades}>
-                  <PolarGrid />
-                  <PolarAngleAxis dataKey="subject" />
-                  <PolarRadiusAxis angle={30} domain={[0, 20]} />
-                  <Radar name="Robert" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-                  <Radar name="Average grades" dataKey="B" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
-                  <Legend />
-                </RadarChart>
+        <RadarChart
+            captions={props.captions}
+            data={props.data}
+            size={400}
+          />
 
               </CardContent>
             </Card>

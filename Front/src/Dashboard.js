@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Dashboard = () => {
+const Dashboard = (props) => {
 
   const [values, setValues] = React.useState({
     firstName: 'Robert',
@@ -58,29 +58,6 @@ const Dashboard = () => {
   };
 
   const classes = useStyles();
-
-  const user = {
-    name: 'Shen Zhi',
-    city: 'Los Angeles',
-    country: 'USA',
-    timezone: 'GTM-7',
-    avatar: './bob.png'
-  };
-
-  const states = [
-    {
-      value: 'alabama',
-      label: 'Alabama'
-    },
-    {
-      value: 'new-york',
-      label: 'New York'
-    },
-    {
-      value: 'san-francisco',
-      label: 'San Francisco'
-    }
-  ];
 
   return(
     <div className={classes.root}>
@@ -101,35 +78,28 @@ const Dashboard = () => {
                 <div>
                   <Typography
                     gutterBottom
-                    variant="h2"
+                    variant="h5"
                   >
-                    Robert Bui
+                    {props.name+" "+props.surname}
                   </Typography>
                   <Typography
                     className={classes.locationText}
                     color="textSecondary"
                     variant="body1"
                   >
-                    {user.city}, {user.country}
+                    Ivry-sur-Seine, Paris
                   </Typography>
                   <Typography
                     className={classes.dateText}
                     color="textSecondary"
                     variant="body1"
                   >
-                    {moment().format('hh:mm A')} ({user.timezone})
+                    {moment().format('hh:mm A')} (GTM-7)
                   </Typography>
                 </div>
                 <Avatar
                   className={classes.avatar}
-                  src={Bob}
-                />
-              </div>
-              <div className={classes.progress}>
-                <Typography variant="body1">Profile Completeness: 70%</Typography>
-                <LinearProgress
-                  value={70}
-                  variant="determinate"
+                  src={'https://raw.githubusercontent.com/Metasilveur/Api_Mobile/master/'+ props.surname +'.jpg'}
                 />
               </div>
             </CardContent>
@@ -183,7 +153,7 @@ const Dashboard = () => {
                       name="firstName"
                       onChange={handleChange}
                       required
-                      value={values.firstName}
+                      value={props.name}
                       variant="outlined"
                     />
                   </Grid>
@@ -199,7 +169,7 @@ const Dashboard = () => {
                       name="lastName"
                       onChange={handleChange}
                       required
-                      value={values.lastName}
+                      value={props.surname}
                       variant="outlined"
                     />
                   </Grid>
@@ -234,34 +204,6 @@ const Dashboard = () => {
                       value={values.phone}
                       variant="outlined"
                     />
-                  </Grid>
-                  <Grid
-                    item
-                    md={6}
-                    xs={12}
-                  >
-                    <TextField
-                      fullWidth
-                      label="Select State"
-                      margin="dense"
-                      name="state"
-                      onChange={handleChange}
-                      required
-                      select
-                      // eslint-disable-next-line react/jsx-sort-props
-                      SelectProps={{ native: true }}
-                      value={values.state}
-                      variant="outlined"
-                    >
-                      {states.map(option => (
-                        <option
-                          key={option.value}
-                          value={option.value}
-                        >
-                          {option.label}
-                        </option>
-                      ))}
-                    </TextField>
                   </Grid>
                   <Grid
                     item

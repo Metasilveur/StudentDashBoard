@@ -51,36 +51,40 @@ export default function Login() {
     password: '',
     boolean: true,
     loading: false,
-    name: 'Robert',
-    surname: 'Bui',
+    name: '',
+    surname: '',
     filiere: 'Système d\'information',
     absence: '8',
-    graph: [  { matiere:'Matière 1', bloc:'Bloc 1', note:10},
-  { matiere:'Matière 2', bloc:'Bloc 2', note:10},
-  { matiere:'Matière 3', bloc:'Bloc 2', note:10},
-  { matiere:'Matière 4', bloc:'Bloc 3', note:10},
-  { matiere:'Matière 5', bloc:'Bloc 2', note:10},
-  { matiere:'Matière 6', bloc:'Bloc 2', note:10},
-  { matiere:'Matière 7', bloc:'Bloc 1', note:10},
-  { matiere:'Matière 8', bloc:'Bloc 2', note:10}],
-    gurades: [  {
-    subject: 'Math', A: 15, B: 10, fullMark: 20,
-  },
-  {
-    subject: 'Chinese', A: 15, B: 10, fullMark: 20,
-  },
-  {
-    subject: 'English', A: 15, B: 10, fullMark: 20,
-  },
-  {
-    subject: 'Geography', A: 15, B: 10, fullMark: 20,
-  },
-  {
-    subject: 'Physics', A: 15, B: 1, fullMark: 20,
-  },
-  {
-    subject: 'History', A: 15 , B: 1, fullMark: 20,
-  }],
+    graph: [],
+    mail: [],
+    captions: {
+      // columns
+      Es: 'Estimation and Data Analysis',
+      Nc: 'Numerical and combinatorial optimization',
+      lp: 'IP Networks',
+      Cp: 'Cryptography',
+      Vr: 'Virtual Reality'
+    },
+    data: [                {
+                data: {
+                  Es: 0.7,
+                  Nc: .8,
+                  lp: 0.9,
+                  Cp: 0.67,
+                  Vr: 0.8
+                },
+                meta: { color: '#58FCEC' }
+              },
+              {
+                data: {
+                  Es: 0.5,
+                  Nc: 0.5,
+                  lp: 0.5,
+                  Cp: 0.5,
+                  Vr: 0.5
+                },
+                meta: { color: '#588CEC' }
+              }],
   });
    
   
@@ -144,7 +148,6 @@ export default function Login() {
       .catch(function(error)  {
           console.log("Noooooo! Something error:");
           console.log(error);
-          //alert("Error ! please check your internet connection or try later");
 
 
           setValues(prev => ({ 
@@ -155,6 +158,93 @@ export default function Login() {
 
       });
    
+  }
+
+  function getInfos(){
+    var url = "http://127.0.0.1:8081/getStudentinfos/";
+    url += form.username;
+
+    var aPromise = fetch(url);
+   
+    aPromise
+      .then(function(response) {
+          console.log("OK! Server returns a response object:");
+          return response.json();
+      })
+      .then(function(data){
+          console.log(data);
+            setValues(prev => ({ 
+                ...prev,
+                name: data[0],
+                surname: data[1],
+                filiere: data[2],
+            }));
+
+          
+      })
+      .catch(function(error)  {
+          console.log("Noooooo! Something error:");
+          console.log(error);
+
+      }); 
+  }
+
+
+  function getGrades(){
+    var url = "http://127.0.0.1:8081/getAllGrades/";
+    url += form.username;
+
+    var aPromise = fetch(url);
+   
+    aPromise
+      .then(function(response) {
+          console.log("OK! Server returns a response object:");
+          return response.json();
+      })
+      .then(function(data){
+
+        console.log(data);
+
+          for (var key in data["Core Program"])
+          {
+            var obj = { matiere:key, bloc:'Core Program', note:data["Core Program"][key]};
+            form.graph.push(obj);
+          }
+          for (var key in data["Technical Common Core"])
+          {
+            var obj = { matiere:key, bloc:'Technical Common Core', note:data["Technical Common Core"][key]};
+            form.graph.push(obj);
+          }
+      })
+      .catch(function(error)  {
+          console.log("Noooooo! Something error:");
+          console.log(error);
+
+      }); 
+  }
+
+  function getMails(){
+    var url = "http://127.0.0.1:8081/getAllMails/";
+    url += form.username;
+
+    var aPromise = fetch(url);
+   
+    aPromise
+      .then(function(response) {
+          console.log("OK! Server returns a response object:");
+          return response.json();
+      })
+      .then(function(data){
+        data.forEach(function(element) {
+          var obj = { sender:element[0], head:element[2], content:element[3]};
+          form.mail.push(obj);
+        });
+      })
+      .catch(function(error)  {
+          console.log("Noooooo! Something error:");
+          console.log(error);
+
+      }); 
   }
 
   function loading() {
@@ -212,7 +302,7 @@ export default function Login() {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={doGetTEXT}
+              onClick={(event) => { doGetTEXT(event); getGrades();getMails();getInfos()}}
             >
               Login
             </Button>
@@ -228,7 +318,11 @@ export default function Login() {
         name={form.name}
         surname={form.surname}
         filiere={form.filiere}
-        absence={form.absence}/>
+        absence={form.absence}
+        graph={form.graph}
+        captions={form.captions}
+        data={form.data}
+        mail={form.mail}/>
         );
     }
   }
@@ -238,6 +332,7 @@ export default function Login() {
 
   return (
     <div>
+
     {rendering()}
     </div>
   );
