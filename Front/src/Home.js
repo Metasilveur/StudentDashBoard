@@ -16,16 +16,15 @@ import ListItemText from '@material-ui/core/ListItemText';
 import MailIcon from '@material-ui/icons/Mail';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
-import Bob from './bob.png';
 import Back from './sidebar-4.jpg';
 import { BrowserRouter as Router, Route, Link , Switch} from "react-router-dom";
 import {
   Divider
 } from '@material-ui/core';
-import Dashboard from './Dashboard';
-import Dashboard2 from './Dashboard2';
-import Dashboard3 from './Dashboard3';
-import Dashboard4 from './Dashboard4';
+import Dashboard from './Component/Dashboard';
+import Dashboard2 from './Component/Dashboard2';
+import Dashboard3 from './Component/Dashboard3';
+import Dashboard4 from './Component/Dashboard4';
 import Image from 'material-ui-image'
 var drawerWidth = 240;
 

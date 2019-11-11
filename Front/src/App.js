@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%', 
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -42,8 +42,6 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
   },
 }));
-
-// ok
 
 export default function Login() {
 
@@ -59,7 +57,6 @@ export default function Login() {
     graph: [],
     mail: [],
     captions: {
-      // columns
       Es: 'Estimation and Data Analysis',
       Nc: 'Numerical and combinatorial optimization',
       lp: 'IP Networks',
@@ -98,7 +95,7 @@ export default function Login() {
   };
 
 
-  function doGetTEXT()  {
+  function verifyEmail()  {
 
     var url = "http://127.0.0.1:8081/authentification/";
 
@@ -131,6 +128,7 @@ export default function Login() {
             alert("Bad password !");
     setValues(prev => ({ 
               ...prev,
+              boolean: true,
               loading: false,
           }));
 
@@ -139,6 +137,7 @@ export default function Login() {
             alert("Bad email !");
     setValues(prev => ({ 
               ...prev,
+              boolean: true,
               loading: false,
           }));
           }
@@ -153,9 +152,11 @@ export default function Login() {
 
           setValues(prev => ({ 
               ...prev,
-              boolean: false,
+              boolean: true,
               loading: false,
           }));
+
+          alert('Can\'t connect to the server, please check your connection')
 
       });
    
@@ -303,7 +304,7 @@ export default function Login() {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={(event) => { doGetTEXT(event); getGrades();getMails();getInfos()}}
+              onClick={(event) => { verifyEmail(event); getGrades();getMails();getInfos()}}
             >
               Login
             </Button>
