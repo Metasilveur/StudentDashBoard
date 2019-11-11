@@ -21,3 +21,14 @@ The second page is the main page of the website, it contain 4 pages :
 For the backend, we used Node.JS and MongoAtlas. We decided to use Mongo Atlas to fix the issue of accessibility of the database. So when the teacher will try the project he won't have to install the database locally. 
 On our database, we have two different collections. The student and the mail. Those collections have the same attributes as the object. We have also developed a few algorithms to make some calculations and several functionalities such as the tag system, the cryptography...
 
+## Screenshots
+
+<img src="responsive.png">
+As you can see, the website is responsive and can adapt to any device.
+
+<img src="dashboard.png">
+<img src="graed.png">
+<img src="mail.png">
+<img src="profile.png">
+
+
